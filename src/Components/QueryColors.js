@@ -3,9 +3,9 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import CardColor from "./CardColor";
 
-export const GET_COLORS = gql`
-  query {
-    getColors {
+const GET_COLORS_PAGINATE = gql`
+  query GetColorsPaginate($take: Int!, $skip: Int!) {
+    getColorsPaginate(pagination: { take: $take, skip: $skip }) {
       id
       color
       hexvalue
@@ -23,13 +23,18 @@ const styles = {
 };
 
 const QueryColors = () => {
-  const { data } = useQuery(GET_COLORS);
+  const { data } = useQuery(GET_COLORS_PAGINATE, {
+    variables: {
+      take: 12,
+      skip: 0
+    }
+  });
 
   return (
     <>
       {data ? (
         <div style={styles.cardFlexBox}>
-          {data.getColors.map(color => (
+          {data.getColorsPaginate.map(color => (
             <div key={color.id}>
               <CardColor hexvalue={color.hexvalue} />
             </div>
@@ -37,7 +42,11 @@ const QueryColors = () => {
         </div>
       ) : (
         <>
-          <p>Loading....</p>
+          <p
+            style={{ fontSize: "2em", textAlign: "center", paddingTop: "5em" }}
+          >
+            Loading...
+          </p>
         </>
       )}
     </>

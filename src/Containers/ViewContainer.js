@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../App.css";
 import {
   Hidden,
   IconButton,
@@ -14,7 +15,7 @@ import helpfulhuman from "../assets/logo-symbol.svg";
 import QueryColors from "../Components/QueryColors";
 import SidePanel from "../Components/SidePanel";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const useStyles = makeStyles(theme => ({
   root: {
