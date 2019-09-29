@@ -1,10 +1,11 @@
 import React from "react";
+import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import CardColor from "./CardColor";
 
 export const GET_COLORS = gql`
-  query getColors {
-    color {
+  query {
+    getColors {
       id
       color
       hexvalue
@@ -12,23 +13,35 @@ export const GET_COLORS = gql`
   }
 `;
 
-const QueryColors = () => (
-  <Query query={GET_COLORS}>
-    {({ data }) =>
-      data ? (
-        <>
+const styles = {
+  cardFlexBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap"
+  }
+};
+
+const QueryColors = () => {
+  const { data } = useQuery(GET_COLORS);
+
+  return (
+    <>
+      {data ? (
+        <div style={styles.cardFlexBox}>
           {data.getColors.map(color => (
-            <ul key={color.id}>
-              <li>{color.color}</li>
-              <li>{color.hexvalue}</li>
-            </ul>
+            <div key={color.id}>
+              <CardColor hexvalue={color.hexvalue} />
+            </div>
           ))}
-        </>
+        </div>
       ) : (
-        <>No Data!!</>
-      )
-    }
-  </Query>
-);
+        <>
+          <p>Loading....</p>
+        </>
+      )}
+    </>
+  );
+};
 
 export default QueryColors;
