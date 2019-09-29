@@ -12,7 +12,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import helpfulhuman from "../assets/logo-symbol.svg";
-import QueryColors from "../Components/QueryColors";
+import Routes from "../routes";
 import SidePanel from "../Components/SidePanel";
 
 const drawerWidth = 260;
@@ -121,8 +121,11 @@ const App = props => {
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
-        <QueryColors />
+      <main
+        className={classes.content}
+        style={{ height: "100vh", overflowY: "auto" }}
+      >
+        <Routes />
       </main>
     </div>
   );

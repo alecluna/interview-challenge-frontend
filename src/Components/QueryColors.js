@@ -25,7 +25,7 @@ const styles = {
 const QueryColors = () => {
   const { data } = useQuery(GET_COLORS_PAGINATE, {
     variables: {
-      take: 12,
+      take: 10,
       skip: 0
     }
   });

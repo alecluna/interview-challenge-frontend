@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent } from "@material-ui/core";
 
 const styles = {
@@ -17,13 +17,18 @@ const styles = {
   font: { fontSize: "1em" }
 };
 
-const DetailedView = ({ hexvalue }) => {
+const DetailedView = props => {
   return (
     <>
       <Card style={styles.cardStyle}>
-        <div style={{ height: 155, backgroundColor: `#${hexvalue}` }}></div>
+        <div
+          style={{
+            height: 155,
+            backgroundColor: `#${props.match.params.hexvalue}`
+          }}
+        ></div>
         <CardContent style={styles.cardContentStyle}>
-          <p style={styles.font}>#{hexvalue}</p>
+          <p style={styles.font}>#{props.match.params.hexvalue}</p>
         </CardContent>
       </Card>
     </>

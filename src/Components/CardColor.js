@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 
 const styles = {
   cardStyle: {
-    width: 175,
+    width: 150,
     height: 200,
     margin: 15,
     borderRadius: 5
   },
   cardContentStyle: {
-    height: 50,
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start"
@@ -25,12 +24,14 @@ const CardColor = ({ hexvalue }) => {
         to={{
           pathname: `/${hexvalue}`,
           state: {
-            hexvalue: `${hexvalue}`
+            hexvalue: hexvalue
           }
         }}
+        replace
+        style={{ textDecoration: "none" }}
       >
         <Card style={styles.cardStyle}>
-          <div style={{ height: 155, backgroundColor: `#${hexvalue}` }}></div>
+          <div style={{ height: "80%", backgroundColor: `#${hexvalue}` }}></div>
           <CardContent style={styles.cardContentStyle}>
             <p style={styles.font}>#{hexvalue}</p>
           </CardContent>
