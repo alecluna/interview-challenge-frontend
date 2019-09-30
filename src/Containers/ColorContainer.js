@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import helpfulhuman from "../assets/logo-symbol.svg";
 import Routes from "../routes";
+import { Link } from "react-router-dom";
 import SidePanel from "../Components/SidePanel";
 
 const drawerWidth = 260;
@@ -74,20 +75,26 @@ const App = props => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
+          <Link
+            to={{
+              pathname: "/"
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <img
-            style={{ width: 35 }}
-            src={helpfulhuman}
-            alt="helpful human"
-          ></img>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <img
+              style={{ width: 35 }}
+              src={helpfulhuman}
+              alt="helpful human"
+            ></img>
+          </Link>
         </Toolbar>
       </AppBar>
 

@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, CardContent } from "@material-ui/core";
+import SmallDetailedList from "./SmallDetailedList";
 
 const styles = {
   cardStyle: {
-    width: 500,
-    height: 300,
+    height: "50vh",
     margin: 15,
     borderRadius: 5
   },
   cardContentStyle: {
-    height: 50,
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start"
   },
-  font: { fontSize: "1em" }
+  font: { fontSize: "1.8em" }
 };
 
 const DetailedView = props => {
@@ -23,7 +22,7 @@ const DetailedView = props => {
       <Card style={styles.cardStyle}>
         <div
           style={{
-            height: 155,
+            height: "80%",
             backgroundColor: `#${props.match.params.hexvalue}`
           }}
         ></div>
@@ -31,6 +30,7 @@ const DetailedView = props => {
           <p style={styles.font}>#{props.match.params.hexvalue}</p>
         </CardContent>
       </Card>
+      <SmallDetailedList />
     </>
   );
 };
