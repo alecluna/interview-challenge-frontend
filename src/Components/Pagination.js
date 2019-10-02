@@ -1,15 +1,4 @@
 import React from "react";
-//import gql from "graphql-tag";
-
-// const GET_COLORS_PAGINATE = gql`
-//   query GetColorsPaginate($take: Int!, $skip: Int!) {
-//     getColorsPaginate(pagination: { take: $take, skip: $skip }) {
-//       id
-//       color
-//       hexvalue
-//     }
-//   }
-// `;
 
 const styles = {
   paginateStyles: {
@@ -21,6 +10,7 @@ const styles = {
     justifyContent: "center"
   }
 };
+
 const Pagination = ({ dataLength, fetchMore }) => {
   let list = [];
   for (let i = 0; i <= Math.ceil(dataLength / 10); i++) {
@@ -40,7 +30,7 @@ const Pagination = ({ dataLength, fetchMore }) => {
                 },
                 updateQuery: (prev, { variables }) => {
                   if (!variables) return prev;
-
+                  console.log(prev, variables);
                   return {
                     ...prev.data.getColorsPaginate,
                     ...variables.data.getColorsPaginate

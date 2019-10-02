@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import RandomButton from "../Components/RandomButton";
 
 const GET_COLORS_SIDEPANEL = gql`
   query {
@@ -41,9 +42,7 @@ const SidePanel = () => {
     <>
       {data ? (
         <div style={styles.listStyle}>
-          <button style={styles.buttonStyle}>
-            <p style={{ fontSize: "1.3em" }}> Random Color </p>
-          </button>
+          <RandomButton />
           {data.getColorsPaginate.map(color => (
             <span key={color.id} style={styles.spanStyle}>
               <p>{color.color}</p>
