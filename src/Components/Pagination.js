@@ -11,7 +11,7 @@ const styles = {
   }
 };
 
-const Pagination = ({ dataLength, fetchMore }) => {
+const Pagination = ({ dataLength, fetchMore, updateQuery }) => {
   let list = [];
   for (let i = 0; i <= Math.ceil(dataLength / 10); i++) {
     list.push(i);
@@ -28,13 +28,15 @@ const Pagination = ({ dataLength, fetchMore }) => {
                   take: 10,
                   skip: index * 10
                 },
-                updateQuery: (prev, { variables }) => {
-                  if (!variables) return prev;
-                  console.log(prev, variables);
-                  return {
-                    ...prev.data.getColorsPaginate,
-                    ...variables.data.getColorsPaginate
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev;
+                  console.log(prev.getColorsPaginate, fetchMoreResult);
+                  let newData = {
+                    ...prev.getColorsPaginate,
+                    ...fetchMoreResult
                   };
+
+                  return newData;
                 }
               });
             }}

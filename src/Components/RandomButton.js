@@ -4,8 +4,8 @@ import gql from "graphql-tag";
 import { Redirect } from "react-router-dom";
 
 const GET_RANDOM_COLOR = gql`
-  query($id: ID!) {
-    getColorID(id: $id) {
+  query {
+    getColorRandom {
       hexvalue
     }
   }
@@ -24,34 +24,27 @@ const styles = {
 };
 
 const RandomButton = () => {
-  const [loadRandColor, { called, data }] = useLazyQuery(GET_RANDOM_COLOR, {
-    variables: {
-      id: Math.trunc(Math.random() * 100)
-    },
-    fetchPolicy: "cache-first"
-  });
+  const [loadRandColor, { called, data }] = useLazyQuery(GET_RANDOM_COLOR);
+
+  if (called && data)
+    return (
+      <>
+        <Redirect
+          to={{
+            pathname: `/${data.getColorRandom.hexvalue}`,
+            state: {
+              hexvalue: data.getColorRandom.hexvalue
+            }
+          }}
+        />
+      </>
+    );
 
   return (
     <>
-      {called && data ? (
-        <>
-          <Redirect
-            to={{
-              pathname: `/${data.getColorID.hexvalue}`,
-              state: {
-                hexvalue: data.getColorID.hexvalue
-              }
-            }}
-          />
-          <button onClick={() => loadRandColor()} style={styles.buttonStyle}>
-            <p style={{ fontSize: "1.3em" }}> Random Color </p>
-          </button>
-        </>
-      ) : (
-        <button onClick={() => loadRandColor()} style={styles.buttonStyle}>
-          <p style={{ fontSize: "1.3em" }}> Random Color </p>
-        </button>
-      )}
+      <button onClick={() => loadRandColor()} style={styles.buttonStyle}>
+        <p style={{ fontSize: "1.3em" }}> Random Color </p>
+      </button>
     </>
   );
 };

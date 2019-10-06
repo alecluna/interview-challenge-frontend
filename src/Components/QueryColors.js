@@ -41,7 +41,7 @@ const QueryColors = () => {
 
   const queryLength = useQuery(GET_COLOR_LENGTH);
 
-  const { data, loading, error, fetchMore } = queryPaginate;
+  const { data, loading, error, fetchMore, updateQuery } = queryPaginate;
   const { data: dataLength } = queryLength;
 
   if (loading)
@@ -79,6 +79,7 @@ const QueryColors = () => {
               length={data}
               dataLength={dataLength.getColors.length}
               fetchMore={fetchMore}
+              updateQuery={updateQuery}
             />
           </>
         ) : (
