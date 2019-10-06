@@ -24,24 +24,20 @@ const styles = {
 };
 
 const RandomButton = () => {
-  const [loadRandColor, { called, data }] = useLazyQuery(GET_RANDOM_COLOR);
-
-  if (called && data)
-    return (
-      <>
-        <Redirect
-          to={{
-            pathname: `/${data.getColorRandom.hexvalue}`,
-            state: {
-              hexvalue: data.getColorRandom.hexvalue
-            }
-          }}
-        />
-      </>
-    );
+  const [loadRandColor, { called, data }] = useLazyQuery(GET_RANDOM_COLOR, {
+    fetchPolicy: "network-only"
+  });
 
   return (
     <>
+      <Redirect
+        to={{
+          pathname: called && data ? `/${data.getColorRandom.hexvalue}` : "",
+          state: {
+            hexvalue: called && data ? data.getColorRandom.hexvalue : ""
+          }
+        }}
+      />
       <button onClick={() => loadRandColor()} style={styles.buttonStyle}>
         <p style={{ fontSize: "1.3em" }}> Random Color </p>
       </button>
