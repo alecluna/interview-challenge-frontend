@@ -20,7 +20,7 @@ const Pagination = ({ dataLength, fetchMore }) => {
   return (
     <div style={styles.paginateStyles}>
       {list.map(index => (
-        <li key={index}>
+        <li style={{ cursor: "pointer" }} key={index}>
           <p
             onClick={() => {
               fetchMore({

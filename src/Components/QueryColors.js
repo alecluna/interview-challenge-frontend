@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import CardColor from "./CardColor";
 import Pagination from "./Pagination";
+import { useSpring, animated } from "react-spring";
 
 const GET_COLORS_PAGINATE = gql`
   query GetColorsPaginate($take: Int!, $skip: Int!) {
@@ -38,7 +39,7 @@ const QueryColors = () => {
       skip: 0
     }
   });
-
+  const props = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
   const queryLength = useQuery(GET_COLOR_LENGTH);
 
   const { data, loading, error, fetchMore, updateQuery } = queryPaginate;
@@ -61,13 +62,15 @@ const QueryColors = () => {
   return (
     <>
       {data ? (
-        <div style={styles.cardFlexBox}>
-          {data.getColorsPaginate.map(color => (
-            <div key={color.id}>
-              <CardColor hexvalue={color.hexvalue} />
-            </div>
-          ))}
-        </div>
+        <animated.div style={props}>
+          <div style={styles.cardFlexBox}>
+            {data.getColorsPaginate.map(color => (
+              <div key={color.id}>
+                <CardColor hexvalue={color.hexvalue} />
+              </div>
+            ))}
+          </div>
+        </animated.div>
       ) : (
         <> Error </>
       )}
